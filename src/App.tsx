@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { CircularProgress, InputAdornment, OutlinedInput } from '@mui/material';
+import { Card, CardContent, CardMedia, CircularProgress, InputAdornment, OutlinedInput } from '@mui/material';
 import useNutriPawtrol from './useNutriPawtrol';
 import { useDebounceValue } from 'usehooks-ts';
 import { MenuOutlined, Search } from '@mui/icons-material';
+import Product from './components/Product';
 
 
 export default function App() {
@@ -54,14 +55,18 @@ export default function App() {
         })
 
         return (
-          <Box key={index}>
+          <Box key={index} sx={{ mb: 5 }}>
             <Box>
-              {/* <Chip label={"Species: " + result.specie} /><br/> */}
               <Typography variant="h6">Species: {specie}</Typography>
             </Box>
             <Box sx={{ my: 1, display: "flex", flexDirection: "row", alignItems: "center" }}>
               <Typography variant="body1" sx={{ mr: 1 }}>Allergens:</Typography>
               <Typography variant="body1">{allergies.join(', ')}</Typography>
+            </Box>
+            <Box sx={{ display: "flex", my: 1, overflowX: "scroll", overflowY: "hidden" }}>
+              {Array.from({ length: 10 }).map((_, index) => (
+                <Product key={index} title="Pedigree" description='Dog food that has no absolutely peanut' />
+              ))}
             </Box>
           </Box>
         )
