@@ -1,7 +1,5 @@
 import service from './service'
-import {
-  useQuery,
-} from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 
 const useNutriPawtrol = (search: string) => {
   const query = useQuery({

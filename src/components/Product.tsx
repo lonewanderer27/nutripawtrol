@@ -1,15 +1,18 @@
 import { Card, CardMedia, CardContent, Typography } from '@mui/material'
 
+const width = 160
+const height = 170
+
 const Product = (props: {
   title: string,
   description: string
 }) => {
   return (
-    <Card sx={{ mr: 2, minWidth: 180 }}>
+    <Card sx={{ mr: 2, minWidth: width }}>
       <CardMedia
-        width={180}
+        width={width}
         component={"img"}
-        height={200}
+        height={height}
         image="/product_placeholder.png"
       />
       <CardContent>
