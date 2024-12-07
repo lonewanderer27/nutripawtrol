@@ -18,7 +18,10 @@ export default function App() {
     inputRef.current?.focus();
   }, [])
 
-  console.log(data);
+  useEffect(() => {
+    if (!data) return;
+    console.log("Data received", data);
+  }, [data]);
 
   return (
     <Container>
