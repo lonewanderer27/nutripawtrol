@@ -1,17 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Chip, CircularProgress, Icon, InputAdornment, Menu, OutlinedInput, TextField } from '@mui/material';
+import { CircularProgress, InputAdornment, OutlinedInput } from '@mui/material';
 import useNutriPawtrol from './useNutriPawtrol';
 import { useDebounceValue } from 'usehooks-ts';
-import { MenuBook, MenuOutlined, Search } from '@mui/icons-material';
+import { MenuOutlined, Search } from '@mui/icons-material';
 
 
 export default function App() {
   const [search, setSearch] = useState('');
-  const [debouncedSearch, setDebouncedSearch] = useDebounceValue(search, 500);
+  const [debouncedSearch] = useDebounceValue(search, 500);
   const { data, isFetching } = useNutriPawtrol(debouncedSearch);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [])
 
   console.log(data);
 
@@ -19,6 +24,7 @@ export default function App() {
     <Container>
       <Box sx={{ my: 4 }}>
         <OutlinedInput
+          ref={inputRef}
           startAdornment={
             <InputAdornment position="start">
               {isFetching ? <CircularProgress size={20} /> : <MenuOutlined />}
