@@ -31,7 +31,7 @@ const LlmOutput = (props: {
         pl: 0.5
       }}
       >
-        {props.suggestOutput.map((product, index) => (
+        {props.suggestOutput?.map((product, index) => (
           <Product
             key={index}
             title={product.product_name}

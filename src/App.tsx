@@ -45,8 +45,8 @@ export default function App() {
           fullWidth
         />
       </Box>
-      {llm.data?.output && llm.data.output.length > 0 && suggest.data?.recommend && suggest.data.recommend.length > 0 &&
-        llm.data.output.map((llmOutput, index) => (
+      {suggest.data?.recommend && suggest.data.recommend.length > 0 &&
+        llm.data?.output.map((llmOutput, index) => (
           <LlmOutput
             key={index}
             llmOutput={llmOutput}

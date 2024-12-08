@@ -4,8 +4,8 @@ import ProductLoader from './ProductLoader'
 const LlmOutputLoader = () => {
   return (
     <Box sx={{ mb: 5 }}>
-      <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
-      <Skeleton variant="text" width={200} sx={{ fontSize: "1rem", my: 1 }} />
+      <Skeleton variant="text" width={200} sx={{ fontSize: "2rem" }}/>
+      <Skeleton variant="text" width={400} sx={{ fontSize: "1rem", mb: 1 }}/>
       <Box sx={{
         display: "flex",
         my: 1,
