@@ -98,6 +98,13 @@ function mockBackend() {
           return {
             recommend: recommendList
           };
+
+          // sample output:
+          // recommend: [
+          //   [12345, 23456, 34567],
+          //   [45678, 56789, 67890],
+          //   [78901, 89012, 90123]
+          // ]
         }
 
         const recommendList: ProductType[][] = [];
@@ -118,6 +125,22 @@ function mockBackend() {
         return {
           recommend: recommendList,
         };
+
+        // sample output:
+        // recommend: [
+        //   [
+        //     {
+        //       main_category_en: "dog",
+        //       image_url: "/product_placeholder.png",
+        //       product_name: "Product name",
+        //       allergens: "allergy",
+        //       ingredients_text: "Ingredients text...",
+        //       url: "https://www.kaytee.com/all-products/wild-bird/birders-blend",
+        //     }, 
+        //     ...
+        //   ],
+        //   ...
+        // ]
       });
     },
   });
