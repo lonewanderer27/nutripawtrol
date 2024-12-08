@@ -15,8 +15,6 @@ const Product = (props: {
     window.open(props.product_url, "_blank")
   }
 
-  console.log("Product props:", props)
-
   return (
     <Card sx={{ mr: 2, minWidth: width }} onClick={handleProduct}>
       <CardMedia
