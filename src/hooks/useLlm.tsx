@@ -8,7 +8,8 @@ const useLlm = (input: string) => {
       const res = await service.llm(input)
       return res.data
     },
-    enabled: input.length > 0
+    enabled: input.length > 0,
+    refetchOnMount: false,
   })
   return query;
 }
