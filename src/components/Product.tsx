@@ -12,16 +12,19 @@ const Product = (props: {
 }) => {
   const handleProduct = () => {
     if (!props.product_url) return;
+    console.log("Opening product in new tab:", props.product_url)
     window.open(props.product_url, "_blank")
   }
 
+  console.log("Product props:", props)
+
   return (
-    <Card sx={{ mr: 2, minWidth: width }} onClick={handleProduct}>
+    <div onClick={handleProduct}>
+      <Card sx={{ mr: 2, minWidth: width }}>
       <CardMedia
         width={width}
         component={"img"}
         height={height}
-        // image="/product_placeholder.png"
         image={props.image_url}
       />
       <CardContent>
@@ -33,6 +36,7 @@ const Product = (props: {
         </Typography>
       </CardContent>
     </Card>
+    </div>
   )
 }
 

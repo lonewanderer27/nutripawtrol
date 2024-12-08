@@ -1,6 +1,6 @@
 import { createServer } from "miragejs";
 import { PET_ALLERGIES, PETS } from "./constants";
-import { SuggestRequestBody } from "./types";
+import { ProductType, SuggestRequestBody } from "./types";
 
 const randomSpecie = () => {
   return PETS[Math.floor(Math.random() * PETS.length)];
@@ -89,7 +89,8 @@ function mockBackend() {
             product_name: "Pedigree",
             allergens: "Allergens list...",
             ingredients_text: "Dog food that has no absolutely peanut in it",
-          };
+            url: "https://www.kaytee.com/all-products/wild-bird/birders-blend"
+          } as ProductType;
         });
 
         return products;
