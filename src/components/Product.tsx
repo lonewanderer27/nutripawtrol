@@ -19,8 +19,7 @@ const Product = (props: {
   console.log("Product props:", props)
 
   return (
-    <div onClick={handleProduct}>
-      <Card sx={{ mr: 2, minWidth: width }}>
+    <Card sx={{ mr: 2, minWidth: width }} onClick={handleProduct}>
       <CardMedia
         width={width}
         component={"img"}
@@ -36,7 +35,6 @@ const Product = (props: {
         </Typography>
       </CardContent>
     </Card>
-    </div>
   )
 }
 

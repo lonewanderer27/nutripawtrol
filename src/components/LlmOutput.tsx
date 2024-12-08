@@ -25,15 +25,15 @@ const LlmOutput = (props: LlmOutputType) => {
         <Typography variant="body1" sx={{ mr: 1 }}>Allergens:</Typography>
         <Typography variant="body1">{allergies.join(', ')}</Typography>
       </Box>
-      <Box sx={{ display: "flex", my: 1, overflowX: "scroll", overflowY: "hidden" }}>
-        {/* {Array.from({ length: 10 }).map((_, index) => (
-          <Product
-            key={index}
-            title="Pedigree"
-            description='Dog food that has no absolutely peanut'
-            image_url='/product_placeholder.png'
-          />
-        ))} */}
+      <Box sx={{ 
+        display: "flex", 
+        my: 1, 
+        overflowX: "scroll", 
+        overflowY: "hidden", 
+        ml: -0.5, 
+        pb: 1, 
+        pl: 0.5 }}
+      >
         {data?.map((product, index) => (
           <Product
             key={index}
