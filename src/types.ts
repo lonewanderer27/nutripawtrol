@@ -4,12 +4,20 @@ export type LlmResultType = {
 
 export type LlmOutputType = {
   pet: string;
-  allergies: string[];
+  allergy: string;
+}
+
+export type SuggestOutputNoCsvType = {
+  recommend: number[][];
+}
+
+export type SuggestOutputType = {
+  recommend: ProductType[][];
 }
 
 export type SuggestRequestBody = {
   num: number;
-  inputs: LlmOutputType;
+  list: LlmOutputType[];
   "no-csv"?: boolean;
 }
 

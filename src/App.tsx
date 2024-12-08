@@ -6,19 +6,23 @@ import useLlm from './hooks/useLlm';
 import { useDebounceValue } from 'usehooks-ts';
 import { MenuOutlined, Search } from '@mui/icons-material';
 import LlmOutput from './components/LlmOutput';
+import useSuggest from './hooks/useSuggest';
+import LlmOutputLoader from './loaders/LlmOutputLoader';
 
 
 export default function App() {
   const [search, setSearch] = useState('');
   const [debouncedSearch] = useDebounceValue(search, 500);
-  const { data, isFetching } = useLlm(debouncedSearch);
+  const llm = useLlm(debouncedSearch);
+  const suggest = useSuggest(10, llm.data?.output ?? [], debouncedSearch);
 
   const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     inputRef.current?.focus();
   }, [])
 
-  console.log("Data received", data);
+  console.log("LLM Output:\n", llm.data);
+  console.log("Suggest Output:\n", suggest.data);
 
   return (
     <Container>
@@ -27,7 +31,7 @@ export default function App() {
           ref={inputRef}
           startAdornment={
             <InputAdornment position="start">
-              {isFetching ? <CircularProgress size={20} /> : <MenuOutlined />}
+              {llm.isFetching ? <CircularProgress size={20} /> : <MenuOutlined />}
             </InputAdornment>
           }
           endAdornment={
@@ -41,7 +45,20 @@ export default function App() {
           fullWidth
         />
       </Box>
-      {data?.output.map((result, index) => <LlmOutput key={index} {...result} />)}
+      {llm.data?.output && llm.data.output.length > 0 && suggest.data?.recommend && suggest.data.recommend.length > 0 &&
+        llm.data.output.map((llmOutput, index) => (
+          <LlmOutput
+            key={index}
+            llmOutput={llmOutput}
+            suggestOutput={suggest.data?.recommend?.[index]}
+          />
+        ))}
+      {(llm.isFetching || suggest.isFetching) && (
+        <>
+          <LlmOutputLoader />
+          <LlmOutputLoader />
+        </>
+      )}
     </Container>
   );
 }

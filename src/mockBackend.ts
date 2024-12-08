@@ -6,7 +6,7 @@ const randomSpecie = () => {
   return PETS[Math.floor(Math.random() * PETS.length)];
 };
 
-const randomAllergy = (specie: string) => {
+const randomAllergies = (specie: string) => {
   // get the food_allergeis for the specie
   let foodAllergies: string[] = [];
   switch (specie) {
@@ -45,10 +45,20 @@ const randomAllergy = (specie: string) => {
   return allergies;
 };
 
-const randomSpecieAndAllergy = () => {
+const randomAllergy = (specie: string) => {
+  return randomAllergies(specie)[0];
+};
+
+const randomSpecieAndAllergies = () => {
   const pet = randomSpecie();
-  const allergies = randomAllergy(pet);
+  const allergies = randomAllergies(pet);
   return { pet, allergies };
+};
+
+const randomPetAndAllergy = () => {
+  const pet = randomSpecie();
+  const allergy = randomAllergy(pet);
+  return { pet, allergy };
 };
 
 function mockBackend() {
@@ -62,7 +72,7 @@ function mockBackend() {
         const results = [];
 
         for (let i = 0; i < numResults; i++) {
-          results.push(randomSpecieAndAllergy());
+          results.push(randomPetAndAllergy());
         }
 
         return {
@@ -70,30 +80,44 @@ function mockBackend() {
         };
       });
       this.post("/suggest", (schema, request) => {
-        const { num, "no-csv": noCsv } = JSON.parse(request.requestBody) as SuggestRequestBody;
-        
+        const {
+          num,
+          "no-csv": noCsv,
+          list,
+        } = JSON.parse(request.requestBody) as SuggestRequestBody;
+
         if (noCsv) {
-          // randomly decide (num) of numbers between 0 and 9
-          const productIndexes = Array.from({ length: num }).map(() => {
-            return Math.floor(Math.random() * 10);
+          const recommendList: number[][] = [];
+          list.forEach((x) => {
+            const items = Array.from({ length: num }).map(() => {
+              return Math.floor(Math.random() * 88888) + 11111;
+            });
+            recommendList.push(items);
           });
 
-          return productIndexes;
+          return {
+            recommend: recommendList
+          };
         }
 
-        // how many results to return
-        const products = Array.from({ length: num }).map(() => {
-          return {
-            main_category_en: "dog food",
-            image_url: "/product_placeholder.png",
-            product_name: "Pedigree",
-            allergens: "Allergens list...",
-            ingredients_text: "Dog food that has no absolutely peanut in it",
-            url: "https://www.kaytee.com/all-products/wild-bird/birders-blend"
-          } as ProductType;
+        const recommendList: ProductType[][] = [];
+        list.forEach((x) => {
+          const products = Array.from({ length: num }).map(() => {
+            return {
+              main_category_en: x.pet,
+              image_url: "/product_placeholder.png",
+              product_name: "Product name",
+              allergens: x.allergy,
+              ingredients_text: "Ingredients text...",
+              url: "https://www.kaytee.com/all-products/wild-bird/birders-blend",
+            } as ProductType;
+          });
+          recommendList.push(products);
         });
 
-        return products;
+        return {
+          recommend: recommendList,
+        };
       });
     },
   });

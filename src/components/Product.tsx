@@ -1,5 +1,4 @@
 import { Card, CardMedia, CardContent, Typography } from '@mui/material'
-import { ProductType } from '../types'
 
 const width = 160
 const height = 170

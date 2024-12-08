@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LlmOutputType, LlmResultType, ProductType } from "./types";
+import { LlmOutputType, LlmResultType, ProductType, SuggestOutputNoCsvType, SuggestOutputType } from "./types";
 
 // TODO: Set BACKEND_URL to the URL of the backend server 
 // in .env for local development
@@ -19,18 +19,18 @@ const service = {
       input: input,
     });
   },
-  async suggest(num: number, llmOutput: LlmOutputType) {
-    return nutripawtrol.post<ProductType[]>("/suggest", {
+  async suggest(num: number, llmOutput: LlmOutputType[]) {
+    return nutripawtrol.post<SuggestOutputType>("/suggest", {
       num: num,
-      inputs: llmOutput,
+      list: llmOutput,
     });
   },
   // Since noCsv only returns indexes of the products,
   // we've created a new service for it
-  async suggestNoCsv(num: number, llmOutput: LlmOutputType) {
-    return nutripawtrol.post<number[]>("/suggest", {
+  async suggestNoCsv(num: number, llmOutput: LlmOutputType[]) {
+    return nutripawtrol.post<SuggestOutputNoCsvType>("/suggest", {
       num: num,
-      inputs: llmOutput,
+      list: llmOutput,
       "no-csv": true,
     });
   },
