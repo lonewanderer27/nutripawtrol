@@ -8,7 +8,8 @@ const useSuggestNoCsv = (num: number, llmOutput: LlmOutputType[] = []) => {
     queryFn: async () => {
       const res = await service.suggestNoCsv(num, llmOutput)
       return res.data
-    }
+    },
+    refetchOnWindowFocus: false,
   })
   return query;
 }

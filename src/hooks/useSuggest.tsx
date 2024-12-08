@@ -10,7 +10,7 @@ const useSuggest = (num: number, llmOutput: LlmOutputType[] = [], input: string)
       return res.data
     },
     enabled: !!llmOutput && llmOutput.length > 0 && input.length > 0,
-    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   })
   return query;
 }
