@@ -1,8 +1,9 @@
 import { createServer } from "miragejs";
-import { pet_allergies, pets } from "./constants";
+import { PET_ALLERGIES, PETS } from "./constants";
+import { SuggestRequestBody } from "./types";
 
 const randomSpecie = () => {
-  return pets[Math.floor(Math.random() * pets.length)];
+  return PETS[Math.floor(Math.random() * PETS.length)];
 };
 
 const randomAllergy = (specie: string) => {
@@ -10,22 +11,22 @@ const randomAllergy = (specie: string) => {
   let foodAllergies: string[] = [];
   switch (specie) {
     case "dog":
-      foodAllergies = pet_allergies.dog.food_allergies;
+      foodAllergies = PET_ALLERGIES.dog.food_allergies;
       break;
     case "cat":
-      foodAllergies = pet_allergies.cat.food_allergies;
+      foodAllergies = PET_ALLERGIES.cat.food_allergies;
       break;
     case "rabbit":
-      foodAllergies = pet_allergies.rabbit.food_allergies;
+      foodAllergies = PET_ALLERGIES.rabbit.food_allergies;
       break;
     case "hamster":
-      foodAllergies = pet_allergies.hamster.food_allergies;
+      foodAllergies = PET_ALLERGIES.hamster.food_allergies;
       break;
     case "parrot":
-      foodAllergies = pet_allergies.parrot.food_allergies;
+      foodAllergies = PET_ALLERGIES.parrot.food_allergies;
       break;
     case "goldfish":
-      foodAllergies = pet_allergies.goldfish.food_allergies;
+      foodAllergies = PET_ALLERGIES.goldfish.food_allergies;
       break;
   }
 
@@ -45,16 +46,15 @@ const randomAllergy = (specie: string) => {
 };
 
 const randomSpecieAndAllergy = () => {
-  const specie = randomSpecie();
-  const allergies = randomAllergy(specie);
-  return { specie, allergies };
+  const pet = randomSpecie();
+  const allergies = randomAllergy(pet);
+  return { pet, allergies };
 };
 
 function mockBackend() {
   return createServer({
     routes() {
-      this.namespace = "api";
-      this.get("/v1", () => {
+      this.post("/llm", () => {
         // decide randomly how many results to return, max 3
         const numResults = Math.floor(Math.random() * 3) + 1;
 
@@ -65,7 +65,34 @@ function mockBackend() {
           results.push(randomSpecieAndAllergy());
         }
 
-        return results;
+        return {
+          output: results,
+        };
+      });
+      this.post("/suggest", (schema, request) => {
+        const { num, "no-csv": noCsv } = JSON.parse(request.requestBody) as SuggestRequestBody;
+        
+        if (noCsv) {
+          // randomly decide (num) of numbers between 0 and 9
+          const productIndexes = Array.from({ length: num }).map(() => {
+            return Math.floor(Math.random() * 10);
+          });
+
+          return productIndexes;
+        }
+
+        // how many results to return
+        const products = Array.from({ length: num }).map(() => {
+          return {
+            main_category_en: "dog food",
+            image_url: "/product_placeholder.png",
+            product_name: "Pedigree",
+            allergens: "Allergens list...",
+            ingredients_text: "Dog food that has no absolutely peanut in it",
+          };
+        });
+
+        return products;
       });
     },
   });

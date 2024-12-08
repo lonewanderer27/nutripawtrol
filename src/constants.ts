@@ -1,5 +1,5 @@
-export const pets = ["dog", "cat", "rabbit", "hamster", "parrot", "goldfish"];
-export const pet_allergies = {
+export const PETS = ["dog", "cat", "rabbit", "hamster", "parrot", "goldfish"];
+export const PET_ALLERGIES = {
   dog: {
     allergy: "dander allergy",
     food_allergies: ["chicken", "beef", "grains", "soy", "dairy"],
