@@ -16,7 +16,6 @@ const useSuggestLlm = (input: string, num: number) => {
         },
         enabled: false,
         refetchOnWindowFocus: false,
-        refetchOnMount: false
     })
     return query;
 }
