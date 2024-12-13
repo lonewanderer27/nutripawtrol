@@ -6,11 +6,11 @@ const useLlm = (input: string) => {
     queryKey: ['llm'],
     queryFn: async () => {
       const res = await service.llm(input)
-      return res.data
+      return res.data ?? []
     },
     enabled: false,
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
+    refetchOnMount: false
   })
   return query;
 }

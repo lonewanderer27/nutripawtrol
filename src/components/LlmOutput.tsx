@@ -17,8 +17,7 @@ const LlmOutput = (props: {
         <span className=" font-bold text-xl">Species: {pet}</span>
       </div>
       <div className="mr-1 flex flex-row items-center mb-3">
-        <p className="mr-1">Allergy</p>
-        <p>{allergy}</p>
+        <p className="mr-1">Allergy: {allergy}</p>
       </div>
       <div className="flex my-1 overflow-x-scroll overflow-y-hidden ml-[0.5] pb-1 pl-[0.5]">
         {props.suggestOutput?.map((product, index) => (
