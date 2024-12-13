@@ -1,6 +1,6 @@
 const ProductLoader = () => {
   return (
-    <div className="card card-bordered card-compact border-black border-2 text-primary-content w-48 h-auto mr-3 mb-2 rounded-lg">
+    <div className="card card-compact text-primary-content w-48 h-auto mr-3 mb-2 rounded-lg">
       <figure className="h-[250px]">
         <div className="skeleton w-full h-full rounded-lg"></div>
       </figure>
