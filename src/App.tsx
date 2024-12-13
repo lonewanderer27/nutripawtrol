@@ -33,7 +33,7 @@ function App() {
             height="24px" 
             viewBox="0 -960 960 960" 
             width="24px" 
-            fill="#5f6368">
+            fill='#3a619c'>
               <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/>
           </svg>}
           {sl.isFetching && <span className="loading loading-spinner loading-xl"></span>}
@@ -67,7 +67,7 @@ function App() {
         </div>
       )}
       {/* Display the LLM output if data is available */}
-      {!sl.isFetching && sl.data?.llm.map((llmOutput, index) => (
+      {sl.data?.llm && sl.data.suggest && sl.data?.llm.map((llmOutput, index) => (
         <LlmOutput key={index} llmOutput={llmOutput} suggestOutput={sl.data.suggest?.[index] ?? []} />
       ))}
     </div>
