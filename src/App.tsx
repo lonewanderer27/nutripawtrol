@@ -14,6 +14,7 @@ function App() {
   }, [])
 
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (search.length === 0) return;
     if (e.key === 'Enter') {
       e.preventDefault();
       sl.refetch();
@@ -27,7 +28,14 @@ function App() {
       <div className='my-4'>
         <label className="input input-bordered flex items-center gap-2 border-2 border-black">
           {!sl.isFetching && 
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>}
+          <svg
+            xmlns="http://www.w3.org/2000/svg" 
+            height="24px" 
+            viewBox="0 -960 960 960" 
+            width="24px" 
+            fill="#5f6368">
+              <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/>
+          </svg>}
           {sl.isFetching && <span className="loading loading-spinner loading-xl"></span>}
           <input
             type="text"
@@ -58,10 +66,9 @@ function App() {
           ))}
         </div>
       )}
-
       {/* Display the LLM output if data is available */}
       {!sl.isFetching && sl.data?.llm.map((llmOutput, index) => (
-        <LlmOutput key={index} llmOutput={llmOutput} suggestOutput={sl.data.suggest?.[index]} />
+        <LlmOutput key={index} llmOutput={llmOutput} suggestOutput={sl.data.suggest?.[index] ?? []} />
       ))}
     </div>
   );
